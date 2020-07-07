@@ -2,15 +2,15 @@ require 'faraday'
 
 class Character < ApplicationRecord
 
-    def get
-        url = 'https://gateway.marvel.com:443/v1/public/'
-        teste = 'https://gateway.marvel.com:443/v1/public/characters?apikey=cd08d2b0ca7081d128be7034591c5161&ts=1&hash=c1cdd5bceaa97182ca53fa05297c575c&limit=2'
+    def load(params)
 
         characters = []
 
-        response = Faraday.get(teste)
-        json = JSON.parse(response.body)
+        url = "https://gateway.marvel.com:443/v1/public/characters?apikey=#{params['apikey']}&ts=#{params['ts']}&hash=#{params['hash']}&limit=1"
+        url.concat("&limit=#{params['limit']}") if !params['apikey'].nil?
 
+        response = Faraday.get(url)
+        json = JSON.parse(response.body)
         
         json["data"]["results"].each do |k|
             character = Character.new(:name => k['name'], :description => k['description'])
@@ -20,5 +20,9 @@ class Character < ApplicationRecord
 
         return characters
         
+    end
+
+    def find_all 
+        Character.where("id = 2")
     end
 end

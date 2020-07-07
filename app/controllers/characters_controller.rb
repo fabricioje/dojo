@@ -1,12 +1,23 @@
 class CharactersController < ApplicationController
-  before_action :set_character, only: [:show, :update, :delete]
+  # before_action :set_character, only: [:show, :update, :delete]
 
-  # GET /characters
-  def get
-    service = CharacterService.new()
-    characters, code = service.get
+  # POST /load
+  def load
 
-    presenter = ApplicationPresenter.new(characters, code)
+    service           = CharacterService.new(character_params)
+    characters, code  = service.load
+
+    presenter         = ApplicationPresenter.new(characters, code)
+    render presenter.as_json
+  end
+
+  # GET /
+  def show
+
+    service           = CharacterService.new
+    characters, code  = service.show
+
+    presenter         = ApplicationPresenter.new(characters, code)
     render presenter.as_json
   end
 
@@ -20,10 +31,10 @@ class CharactersController < ApplicationController
     render json: @characters
   end
 
-  # GET /characters/1
-  def show
-    render json: @character
-  end
+  # # GET /characters/1
+  # def show
+  #   render json: @character
+  # end
 
   # POST /characters
   def create
@@ -59,6 +70,6 @@ class CharactersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def character_params
-      params.require(:character).permit(:apikey, :hash, :ts)
+      params.permit(:apikey, :hash, :ts, :limit)
     end
 end

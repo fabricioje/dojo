@@ -1,4 +1,5 @@
 Jets.application.routes.draw do
   resources :characters
-  get  "/", to: "characters#get"
+  post  "/load", to: "characters#load"
+  get  "/", to: "characters#show"
 end
