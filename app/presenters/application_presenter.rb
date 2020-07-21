@@ -48,8 +48,8 @@ class ApplicationPresenter
     error[:status]  = get_http_status
     error[:code]    = get_error_code
     error[:message] = get_error_message
-    error[:errors]  = @object.errors.messages if !(@object.nil? or @object.errors.blank?)
-    error[:see]     = get_error_link
+    # error[:errors]  = @object.errors.messages if !(@object.nil? or @object.errors.blank?)
+    # error[:see]     = get_error_link
     error
   end
 
@@ -75,10 +75,8 @@ class ApplicationPresenter
   # 3. O http status code for da familia 2xx
   def valid?
 
-    pp @object.kind_of?(Array)
-
-    # !@object.nil? and @object.valid? and (get_http_status < 300) and @object.kind_of?(Array)
-    !@object.nil? and @object.kind_of?(Array) and (get_http_status < 300)
+    # !@object.nil? and @object.valid? and (get_http_status < 300) #and @object.kind_of?(Array)
+    !@object.nil? and (get_http_status < 300)
   end
 
   def build_link_http_header(page, per_page, total_pages)

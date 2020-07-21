@@ -14,8 +14,7 @@ class CharacterService
         model   = Character.new
         characters     = model.find_all
 
-        pp characters
-
-        return[characters, :ok] if !characters.nil?
+        return[nil, :item_not_found] if characters.nil?
+        return[characters, :ok]
     end
 end
