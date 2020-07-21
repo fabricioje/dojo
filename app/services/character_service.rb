@@ -10,9 +10,9 @@ class CharacterService
         return[characters, :created] if !characters.nil?
     end
 
-    def show
+    def show(params)
         model   = Character.new
-        characters     = model.find_all
+        characters     = model.find_all(params)
 
         return[nil, :item_not_found] if characters.nil?
         return[characters, :ok]

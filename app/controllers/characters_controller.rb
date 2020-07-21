@@ -14,52 +14,20 @@ class CharactersController < ApplicationController
   # GET /
   def show
 
+    pp params
+
     service           = CharacterService.new
-    characters, code  = service.show
+    characters, code  = service.show(params)
 
     presenter         = ApplicationPresenter.new(characters, code)
     render presenter.as_json
   end
-
-
-
 
   # GET /characters
   def index
     @characters = Character.all
 
     render json: @characters
-  end
-
-  # # GET /characters/1
-  # def show
-  #   render json: @character
-  # end
-
-  # POST /characters
-  def create
-    @character = Character.new(character_params)
-
-    if @character.save
-      render json: @character, status: :created
-    else
-      render json: @character.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /characters/1
-  def update
-    if @character.update(character_params)
-      render json: @character
-    else
-      render json: @character.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /characters/1
-  def delete
-    @character.destroy
-    render json: {deleted: true}
   end
 
   private

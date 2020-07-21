@@ -23,10 +23,11 @@ class Character < ApplicationRecord
         
     end
 
-    def find_all
+    def find_all(params)
         pp 'CHEGOU ------'
-
-        Character.all
+        pp params
+        
+        Character.where("id = 2")
         # pp self.all
     end
 end

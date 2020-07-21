@@ -177,6 +177,7 @@ GEM
     minitest (5.14.1)
     multipart-post (2.1.1)
     mysql2 (0.5.3)
+    mysql2 (0.5.3-x64-mingw32)
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -228,6 +229,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   byebug
