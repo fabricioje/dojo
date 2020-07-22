@@ -7,14 +7,16 @@ class CharacterService
     def load
         model           = Character.new
         characters      = model.load(@params)
-        return[characters, :created] if !characters.nil?
+
+        return[nil, :transition_not_accepted] unless characters.any?
+        return[characters, :created]
     end
 
     def show(params)
         model   = Character.new
         characters     = model.find_all(params)
 
-        return[nil, :item_not_found] if characters.nil?
+        return[{:code => "loaded"}, :item_not_found] if characters == []
         return[characters, :ok]
     end
 end

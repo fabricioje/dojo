@@ -33,11 +33,10 @@ class ApplicationPresenter
     # json = obj.attributes.except('id', 'created_at', 'updated_at')
     json = obj
 
+    json.each { |k, v| json.delete(k) if v.nil? }
     res = json.map{ |data|
       data.attributes.except('id', 'created_at', 'updated_at')
     }
-
-    # json.each { |k, v| json.delete(k) if v.nil? }
 
     return res
     
